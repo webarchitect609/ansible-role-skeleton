@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  roles:
+  # TODO Use role name from the galaxy here.
+    - role: webarchitect609.role_name
