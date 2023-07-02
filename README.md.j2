@@ -1,60 +1,52 @@
-// TODO Use human readable role name here.
+[//]: # (TODO Use human readable role name here.)
 Ansible Role: Role Name
 =======================
 
-[![Build Status](https://travis-ci.org/webarchitect609/{{ role_name }}.svg?branch=master)](https://travis-ci.org/webarchitect609/{{ role_name }})
+[![Build Status](https://travis-ci.org/webarchitect609/{{ role_name }}.svg?branch=master)](https://github.com/webarchitect609/ansible-role-{{ role_name }}/actions?query=workflow%3Abuild)
+[![Latest version](https://img.shields.io/github/v/tag/webarchitect609/ansible-role-{{ role_name }}?sort=semver)](https://github.com/webarchitect609/ansible-role-{{ role_name }}/releases)
+[![Downloads](https://img.shields.io/ansible/role/d/56021)](https://galaxy.ansible.com/webarchitect609/{{ role_name }})
+[![License](https://img.shields.io/github/license/webarchitect609/ansible-role-{{ role_name }})](LICENSE.md)
+[![More stuff from me](https://img.shields.io/badge/galaxy-webarchitect609-000)](https://galaxy.ansible.com/webarchitect609)
 
-// A brief description of the role goes here.
+[//]: # (TODO A brief description of the role goes here.)
 Installs the application.
 
 Requirements
 ------------
 
-// Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if
-// the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+[//]: # (TODO Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here.)
 
 None.
 
 Role Variables
 --------------
 
-// A description of the settable variables for this role should go here, including any variables that are in
-// defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables
-// that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as
-// well.
+[//]: # (TODO A description of the settable variables for this role should go here, including any variables that are in
+defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables
+that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as
+well.)
 
-None of the variables need to be altered for installing the latest stable version of the application. 
-However, all available variables are listed below, along with default values (see `defaults/main.yml`):
-
-    variable: default-value
-    
-Variable description.
+See [defaults/main.yml](defaults/main.yml)
 
 Dependencies
 ------------
 
-// A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be
-// set for other roles, or variables that are used from other roles.
+[//]: # (TODO A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may 
+need to be set for other roles, or variables that are used from other roles.)
 
 None.
 
 Example Playbook
 ----------------
 
-// Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice
-// for users too:
+[//]: # (TODO Including an example of how to use your role (for instance, with variables passed in as parameters) is 
+always nice for users too:)
 
     - hosts: servers
       roles:
-      // TODO Use role name from the galaxy here.
-         - { role: webarchitect609.role_name }
+         - { role: webarchitect609.{{ role_name }} }
 
-License
--------
+License & Author Information
+----------------------------
 
-MIT
-
-Author Information
-------------------
-
-This role was created in 2020 by Gripinskiy Sergey.
+[BSD-3-Clause](LICENSE.md)

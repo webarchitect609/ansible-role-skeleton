@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  pre_tasks:
+
+    - name: "Refresh apt sources list"
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 600
+      when: ansible_os_family == 'Debian'
+
+  roles:
+    - role: webarchitect609.{{ role_name }}
