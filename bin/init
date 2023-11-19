@@ -1,0 +1,124 @@
+#!/bin/env bash
+
+# Inits Ansible Role from this skeleton directory and names it ansible-role-$ROLE
+
+# TODO Allow replacing 'webarchitect609' with another vendor
+# TODO Option to skip prefixing with 'ansible-role-'
+
+main() {
+  init_vars "$@" || return 1
+  init_role "$ROLE" &&
+  remove_idea_sys_folder "$ROLE" &&
+  remove_bin_folder "$ROLE" &&
+  append_prefix "$ROLE"
+}
+
+init_vars() {
+  PREFIX="ansible-role-"
+  SKELETON="$(dirname "$(resolve_working_directory)")"
+  if [ ! -d "$SKELETON" ]; then
+    printf "ERROR Skeleton is not found: %s\n" "$SKELETON" >&2
+    return 1
+  fi
+  ROLE="$(get_role_name "$@")"
+  if [ -z "$ROLE" ]; then
+    show_usage
+    return 1
+  fi
+}
+
+# Returns the working directory irrespective to the location, where the script was ran from.
+resolve_working_directory() {
+  # BEWARE: if you cd to a different directory before running this function, the result may be incorrect!
+  local SOURCE DIR
+  SOURCE=${BASH_SOURCE[0]}
+  while [ -h "${SOURCE}" ]; do # resolve $SOURCE until the file is no longer a symlink
+    DIR=$( cd -P "$( dirname "${SOURCE}" )" > /dev/null 2>&1 && pwd )
+    SOURCE=$(readlink "${SOURCE}")
+    # if $SOURCE was a relative symlink, it needed to be resolved
+    # relative to the path where the symlink file was located.
+    [[ $SOURCE != /* ]] && SOURCE="${DIR}/${SOURCE}"
+  done
+  # shellcheck disable=SC2005
+  echo "$( cd -P "$( dirname "${SOURCE}" )" > /dev/null 2>&1 && pwd )"
+}
+
+
+get_role_name() {
+  if [ $# -ne 1 ]; then
+    printf "ERROR Only one argument is expected: role name.\n" >&2
+    return 1
+  fi
+#  if grep -q "^-" <<< "$1"; then
+#    printf "ERROR Role name cannot start with '-'\n" >&2
+#    return 1
+#  fi
+  __ROLE_NO_VENDOR="$(delete_role_vendor "$1")"
+  if [ -z "$__ROLE_NO_VENDOR" ]; then
+    printf "ERROR Empty role name.\n" >&2
+    return 1
+  fi
+  printf "%s\n" "$__ROLE_NO_VENDOR"
+}
+
+# If role name contains vendor and dot, it must be deleted. Otherwise the result will be damaged.
+delete_role_vendor() {
+  __ROLE_BASENAME="$(basename -- "$1")"
+  __VENDOR_REGEXP="^.*\.([^.]*)$"
+  if ! grep -q -P "$__VENDOR_REGEXP" <<< "$__ROLE_BASENAME"; then
+    printf "%s" "$1"
+  else
+    __ROLE_NO_VENDOR="$(sed -E "s@$__VENDOR_REGEXP@\1@" <<< "$__ROLE_BASENAME")"
+    if [ -n "$__ROLE_NO_VENDOR" ]; then
+      printf "WARNING Vendor removed from '%s', resulting in '%s'\n" "$1" "$__ROLE_NO_VENDOR" >&2
+      printf "%s/%s" "$(dirname "$1")" "$__ROLE_NO_VENDOR"
+    fi 
+  fi
+}
+
+show_usage() {
+  printf "Usage: \n\t\e[1m%s\e[0m\e[3m role_name \e[0m\n" "$(basename -- "$0")" >&2
+}
+
+init_role() {
+  ansible-galaxy role init --offline --role-skeleton "$SKELETON" -- "$1"
+}
+
+remove_idea_sys_folder() {
+  local __IDEA
+  __IDEA="./$ROLE/.idea"
+  if [ -d "$__IDEA" ]; then
+    rm --recursive --force -- "$__IDEA"
+  fi
+}
+
+remove_bin_folder() {
+  local __BIN
+  __BIN="./$ROLE/bin"
+    if [ -d "$__BIN" ]; then
+      rm --recursive --force -- "$__BIN"
+    fi
+}
+
+append_prefix() {
+  if grep -q "/" <<< "$1"; then
+    __DIR="$(dirname "$1")"
+    __BASE="$(basename -- "$1")"
+  else
+    __DIR=""
+    __BASE="$1"
+  fi
+  if ! grep -q "^$PREFIX" <<< "$__BASE"; then
+    __BASE="$PREFIX$__BASE"
+  fi
+  if [ -z "$__DIR" ]; then
+    __PREFIXED="$__BASE"
+  else
+    __PREFIXED="$__DIR/$__BASE"
+  fi
+  if [ "$1" != "$__PREFIXED" ]; then
+    mv -- "$1" "$__PREFIXED"
+  fi
+}
+
+main "$@"
