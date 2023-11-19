@@ -5,13 +5,13 @@ name: build
   push:
     branches:
       - '**'
-# TODO Use `str2crontab  webarchitect609.{{ role_name }}` to generate schedule for monthly check
+# TODO Use `str2crontab  webarchitect609.{{ role_name | basename }}` to generate schedule for monthly check
   schedule:
     - cron: "0 0 1 * *"
 
 defaults:
   run:
-    working-directory: 'webarchitect609.{{ role_name }}'
+    working-directory: 'webarchitect609.{{ role_name | basename }}'
 
 jobs:
 
@@ -22,7 +22,7 @@ jobs:
       - name: Check out the codebase
         uses: actions/checkout@v2
         with:
-          path: 'webarchitect609.{{ role_name }}'
+          path: 'webarchitect609.{{ role_name | basename }}'
 
       - name: Set up Python 3
         uses: actions/setup-python@v2
@@ -54,7 +54,7 @@ jobs:
       - name: Check out the codebase
         uses: actions/checkout@v2
         with:
-          path: 'webarchitect609.{{ role_name }}'
+          path: 'webarchitect609.{{ role_name | basename }}'
 
       - name: Set up Python 3
         uses: actions/setup-python@v2

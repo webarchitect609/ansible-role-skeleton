@@ -2,12 +2,12 @@
 Ansible Role: Role Name
 =======================
 
-[![Build Status](https://github.com/webarchitect609/ansible-role-{{ role_name }}/actions/workflows/build.yml/badge.svg)](https://github.com/webarchitect609/ansible-role-{{ role_name }}/actions/workflows/build.yml)
-[![Latest version](https://img.shields.io/github/v/tag/webarchitect609/ansible-role-{{ role_name }}?sort=semver)](https://github.com/webarchitect609/ansible-role-{{ role_name }}/releases)
+[![Build Status](https://github.com/webarchitect609/ansible-role-{{ role_name | basename }}/actions/workflows/build.yml/badge.svg)](https://github.com/webarchitect609/ansible-role-{{ role_name | basename }}/actions/workflows/build.yml)
+[![Latest version](https://img.shields.io/github/v/tag/webarchitect609/ansible-role-{{ role_name | basename }}?sort=semver)](https://github.com/webarchitect609/ansible-role-{{ role_name | basename }}/releases)
 
-[//]: # (TODO Replace '00000' with the role id, which can be found by `ansible-galaxy role info webarchitect609.{{ role_name }} | grep -oP "\bid:\s?\d+"`)
-[![Downloads](https://img.shields.io/ansible/role/d/00000)](https://galaxy.ansible.com/webarchitect609/{{ role_name }})
-[![License](https://img.shields.io/github/license/webarchitect609/ansible-role-{{ role_name }})](LICENSE.md)
+[//]: # (TODO Replace '00000' with the role id, which can be found by `ansible-galaxy role info webarchitect609.{{ role_name | basename }} | grep -oP "\bid:\s?\d+"`)
+[![Downloads](https://img.shields.io/ansible/role/d/00000)](https://galaxy.ansible.com/webarchitect609/{{ role_name | basename }})
+[![License](https://img.shields.io/github/license/webarchitect609/ansible-role-{{ role_name | basename }})](LICENSE.md)
 [![More stuff from me](https://img.shields.io/badge/galaxy-webarchitect609-000)](https://galaxy.ansible.com/ui/standalone/namespaces/7493/)
 
 [//]: # (TODO A brief description of the role goes here.)
@@ -46,7 +46,7 @@ always nice for users too:)
 ```yaml
 - hosts: servers
   roles:
-     - { role: webarchitect609.{{ role_name }} }
+     - { role: webarchitect609.{{ role_name | basename }} }
 ```
 
 License & Author Information
