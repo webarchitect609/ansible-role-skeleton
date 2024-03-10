@@ -8,6 +8,7 @@ name: build
 # TODO Use `str2crontab  webarchitect609.{{ role_name | basename }}` to generate schedule for monthly check
   schedule:
     - cron: "0 0 1 * *"
+  workflow_dispatch:
 
 defaults:
   run:
